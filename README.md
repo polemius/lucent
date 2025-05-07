@@ -1,12 +1,12 @@
 <div align="center">
-  <img src="assets/logo_s.png" alt="Lucent Logo" width="150">
+  <img src="https://github.com/polemius/lucent/blob/dc007950c1e6d74bfda2a81483410cac00f7b2a8/assets/logo_s.png" alt="Lucent Logo" width="150">
 </div>
 
 **Lucent** is a powerful and expressive terminal styling library for Dart, inspired by Python's Rich. It allows you to style terminal output with ease, supporting nested styles, truecolor, and intelligent fallbacks for terminals with limited capabilities.
 
 ---
 
-![Lucent Example Screenshot](assets/image.png)
+![Lucent Example Screenshot](https://github.com/polemius/lucent/blob/dc007950c1e6d74bfda2a81483410cac00f7b2a8/assets/image.png)
 
 ## ✨ Features
 
@@ -28,7 +28,7 @@ Add to `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  lucent: ^1.0.0
+  lucent: ^0.1.0
 ```
 
 Then install:
@@ -89,7 +89,7 @@ Manually override behavior:
 ```dart
 enableStyling();       // Force styling on
 disableStyling();      // Disable all styling
-setSilentMode();       // Suppress warnings
+silentMode();          // Suppress warnings
 ```
 
 ---
@@ -99,8 +99,7 @@ setSilentMode();       // Suppress warnings
 - `Console.print(String markup)`
 - `enableStyling([bool enabled = true])`
 - `disableStyling()`
-- `setSilentMode([bool silent = true])`
-- `TextStyle.apply(String text)`
+- `silentMode()`
 
 ---
 

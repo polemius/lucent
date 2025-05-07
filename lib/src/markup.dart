@@ -64,6 +64,7 @@ final _styleModifiers = <String, TextStyle Function(TextStyle)>{
   for (var color in AnsiColor.values)
     _normalizeColorName(color.name): (style) => style.copyWith(color: color),
 };
+
 TextStyle _parseStyle(String tag) {
   final colorFunc = RegExp(r'(?<!on )color\((\d{1,3})\)');
   final bgFunc = RegExp(r'on color\((\d{1,3})\)');
@@ -132,18 +133,15 @@ TextStyle _parseStyle(String tag) {
     workingTag = workingTag.replaceFirst(bgRgbMatch.group(0)!, '');
   }
 
-  // Match and remove background first
   final bgMatch = bgFunc.firstMatch(workingTag);
   if (bgMatch != null) {
     final code = int.parse(bgMatch.group(1)!);
     if (code >= 0 && code <= 255) {
       style = style.copyWith(bg256: code);
     }
-    // remove the matched part to avoid overlap
     workingTag = workingTag.replaceFirst(bgMatch.group(0)!, '');
   }
 
-  // Match foreground next
   final fgMatch = colorFunc.firstMatch(workingTag);
   if (fgMatch != null) {
     final code = int.parse(fgMatch.group(1)!);
@@ -153,7 +151,6 @@ TextStyle _parseStyle(String tag) {
     workingTag = workingTag.replaceFirst(fgMatch.group(0)!, '');
   }
 
-  // Parse remaining flags (bold, underline, etc.)
   final parts = workingTag.split(RegExp(r'\s+')).where((p) => p.isNotEmpty);
   for (final part in parts) {
     final modifier = _styleModifiers[part];
