@@ -110,7 +110,6 @@ Console.print('[bold blue]Info:[/] App started');
 Console.print('[italic yellow]Warning:[/] Low disk space');
 Console.print('[underline red]Error:[/] Connection failed');
 
-Console.print('[color(#00ffaa) on #222222] Custom truecolor text [/]');
 Console.print('[bold color(tomato) on gold] Tasty styled message [/]');
 ```
 
