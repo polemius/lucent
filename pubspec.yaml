@@ -1,0 +1,12 @@
+name: lucent
+description: Lucent is a powerful and expressive terminal styling library for Dart
+version: 0.1.0
+homepage: https://github.com/polemius/lucent
+repository: https://github.com/polemius/lucent
+
+environment:
+  sdk: ^3.7.2
+
+dev_dependencies:
+  lints: ^5.0.0
+  test: ^1.24.0
