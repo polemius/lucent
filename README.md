@@ -1,12 +1,12 @@
 <div align="center">
-  <img src="https://github.com/polemius/lucent/blob/dc007950c1e6d74bfda2a81483410cac00f7b2a8/assets/logo_s.png" alt="Lucent Logo" width="150">
+  <img src="https://raw.githubusercontent.com/polemius/lucent/main/assets/logo_s.png" alt="Lucent Logo" width="150">
 </div>
 
 **Lucent** is a powerful and expressive terminal styling library for Dart, inspired by Python's Rich. It allows you to style terminal output with ease, supporting nested styles, truecolor, and intelligent fallbacks for terminals with limited capabilities.
 
 ---
 
-![Lucent Example Screenshot](https://github.com/polemius/lucent/blob/dc007950c1e6d74bfda2a81483410cac00f7b2a8/assets/image.png)
+![Lucent Example Screenshot](https://raw.githubusercontent.com/polemius/lucent/main/assets/image.png)
 
 ## ✨ Features
 
