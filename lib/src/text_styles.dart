@@ -1,26 +1,69 @@
 import 'package:lucent/src/colors.dart';
 import 'package:lucent/src/config.dart';
 
+/// Represents a set of styling options for terminal text,
+/// including colors (4-bit, 8-bit, truecolor), text decorations,
+/// and other ANSI attributes.
 class TextStyle {
+  /// A 4-bit ANSI foreground color.
   final AnsiColor? color;
+
+  /// Whether text is bold (ANSI code 1).
   final bool bold;
+
+  /// Whether text is dim (ANSI code 2).
   final bool italic;
+
+  /// Whether text is italic (ANSI code 3).
   final bool underline;
+
+  /// Whether text is underlined (ANSI code 4).
   final bool dim;
+
+  /// Whether text is inverse/reverse (ANSI code 7).
   final bool reverse;
+
+  /// Whether text is concealed/hidden (ANSI code 8).
   final bool conceal;
+
+  /// Whether text is struck through (ANSI code 9).
   final bool strike;
+
+  /// Whether text blinks (slow blink, ANSI code 5).
   final bool blink;
+
+  /// Whether text is overlined (ANSI code 53).
   final bool overline;
+
+  /// Whether text is framed (ANSI code 51).
   final bool frame;
+
+  /// Whether text is encircled (ANSI code 52).
   final bool encircle;
+
+  /// Whether text uses double underline (ANSI code 21).
   final bool underline2;
+
+  /// A custom 8-bit (256) foreground color code.
   final int? fg256;
+
+  /// A custom 8-bit (256) background color code.
   final int? bg256;
+
+  /// A truecolor (24-bit RGB) foreground triple `[r, g, b]`.
   final List<int>? fgRgb;
+
+  /// A truecolor (24-bit RGB) background triple `[r, g, b]`.
   final List<int>? bgRgb;
 
-  const TextStyle({
+  late final String _ansiPrefix = _buildAnsiPrefix();
+  static const String _ansiSuffix = '\x1B[0m';
+
+  /// Creates a [TextStyle] with the given properties.
+  ///
+  /// By default, only [color] is set to [AnsiColor.defaultColor]
+  /// and all other decorations are `false`.
+  TextStyle({
     this.color = AnsiColor.defaultColor,
     this.fg256,
     this.bg256,
@@ -40,11 +83,8 @@ class TextStyle {
     this.underline2 = false,
   });
 
-  String apply(String text) {
-    if (!isStylingEnabled) {
-      return text;
-    }
-
+  String _buildAnsiPrefix() {
+    if (!isStylingEnabled) return '';
     final codes = <int>[
       if (bold) 1,
       if (dim) 2,
@@ -58,8 +98,6 @@ class TextStyle {
       if (encircle) 52,
       if (overline) 53,
       if (underline2) 21,
-
-      // Foreground color: priority → RGB > 8-bit > 4-bit
       if (fgRgb != null) ...[
         38,
         2,
@@ -70,8 +108,6 @@ class TextStyle {
         fg256!,
       ] else if (color != null)
         color!.code,
-
-      // Background color: priority → RGB > 8-bit
       if (bgRgb != null) ...[
         48,
         2,
@@ -82,12 +118,25 @@ class TextStyle {
         bg256!,
       ],
     ];
-
-    final start = '\x1B[${codes.join(';')}m';
-    const end = '\x1B[0m';
-    return '$start$text$end';
+    return '\x1B[${codes.join(';')}m';
   }
 
+  /// Applies this style to [text], wrapping it in ANSI escape codes
+  /// built once per style instance (cached in `_ansiPrefix`).
+  ///
+  /// - Honors truecolor (RGB), 8-bit, and 4-bit color settings.
+  /// - Emits ANSI codes for bold, italic, underline, blink, etc.
+  /// - If styling is disabled via [isStylingEnabled], or if this style
+  ///   has no codes, returns [text] unchanged.
+  String apply(String text) {
+    if (_ansiPrefix.isEmpty) return text;
+    return '$_ansiPrefix$text$_ansiSuffix';
+  }
+
+  /// Returns a new [TextStyle] by overriding the specified properties
+  /// on this instance.
+  ///
+  /// Any parameter set to `null` will preserve the original.
   TextStyle copyWith({
     AnsiColor? color,
     int? fg256,
@@ -144,22 +193,14 @@ class TextStyle {
     if (frame) props.add('frame');
     if (encircle) props.add('encircle');
     if (underline2) props.add('underline2');
-
     if (fg256 != null) {
       props.add('fg256=$fg256');
     } else if (color != null) {
       props.add('color=${color!.name}');
     }
-
-    if (bg256 != null) {
-      props.add('bg256=$bg256');
-    }
-    if (fgRgb != null) {
-      props.add('fgRgb=${fgRgb!.join(',')}');
-    }
-    if (bgRgb != null) {
-      props.add('bgRgb=${bgRgb!.join(',')}');
-    }
+    if (bg256 != null) props.add('bg256=$bg256');
+    if (fgRgb != null) props.add('fgRgb=${fgRgb!.join(',')}');
+    if (bgRgb != null) props.add('bgRgb=${bgRgb!.join(',')}');
 
     return 'TextStyle(${props.join(', ')})';
   }

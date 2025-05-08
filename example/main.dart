@@ -4,10 +4,6 @@ import 'package:lucent/src/text_styles.dart';
 
 void main() {
   Console.print(
-    '[bold underline cyan]Lucent: Dart Terminal Styling Showcase[/]\n',
-  );
-
-  Console.print(
     '[bold]Bold[/] [italic]Italic[/] [underline]Underline[/] [dim]Dim[/] [strike]Strikethrough[/] [reverse]Reverse[/]',
   );
   Console.print('');
@@ -31,7 +27,9 @@ void main() {
   Console.print('');
 
   Console.print('[color(#ff00ff)]Hex Magenta[/] [on #003366]Dark Blue BG[/]');
-  Console.print('[color(rgb(255,165,0)) on rgb(30,30,30)]Orange on dark[/]');
+  Console.print(
+    '[color(rgb(255,165,0)) on rgb(255,255,255)]Orange on white[/]',
+  );
   Console.print('');
 
   if (!isStylingEnabled) {

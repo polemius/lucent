@@ -1,3 +1,9 @@
+/// A map of standard CSS3 color names to their 24-bit RGB values.
+///
+/// Each key is a lowercase CSS color name (e.g. `"tomato"`, `"slategray"`),
+/// and each value is a three-element list `[r, g, b]` where `r`, `g`, and `b`
+/// are integers in the range `0…255`. Used by the markup parser to resolve
+/// named colors into truecolor ANSI escape sequences.
 final namedColors = <String, List<int>>{
   'aliceblue': [240, 248, 255],
   'antiquewhite': [250, 235, 215],
