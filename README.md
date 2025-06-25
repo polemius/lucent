@@ -116,3 +116,14 @@ Console.print('[bold color(tomato) on gold] Tasty styled message [/]');
 ---
 
 Lucent is inspired by the [Rich](https://github.com/Textualize/rich) Python library.
+
+## TODO
+
+Planned features to reach closer parity with Rich:
+
+- **Progress bars** – Add a `ProgressBar` utility for dynamic progress indicators.
+- **Table rendering** – Create a `Table` builder with headers, borders, and alignment options.
+- **Panels** – Provide a `Panel` widget for boxed sections of text.
+- **Syntax highlighting** – Integrate a highlighter for displaying code snippets.
+- **Logging helpers** – Offer colorized `Console.log` with optional timestamps.
+- **Traceback formatting** – Pretty-print exceptions and stack traces.
